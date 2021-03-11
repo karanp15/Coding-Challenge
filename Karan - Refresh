@@ -13,18 +13,32 @@ function setup() {
 
 function draw() {
   background(200);
+
   frameRate(3);
 
-  
-  
 
-  for (let i = 0; i < values.length; i++) {
-    stroke(0);
-    rect((width / 30) * i, 0, width / 30, values[i]);
+  if (i < values.length) {
+    for (let j = 0; j < values.length - i - 1; j++) {
+      let a = values[j];
+      let b = values[j + 1];
+
+      if (a > b) {
+        swap(values, j, j + 1);
+      }
+
+    }
   }
+  i++;
 
-  textSize(32);
-  text(values.length, 300, 300)
+  for (let k = 0; k < values.length; k++) {
+    stroke(0);
+    if(k <= values.length-i){
+      fill(255)
+    }else{
+      fill(173,216,230)
+    }
+    rect((width / 30) * k, 0, width / 30, values[k]);
+  }
 
 }
 
