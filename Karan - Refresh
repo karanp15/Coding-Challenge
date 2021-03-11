@@ -1,0 +1,35 @@
+let values = [];
+
+let i = 0;
+let j = 0;
+
+function setup() {
+  createCanvas(900, 550)
+  values = new Array(width / (width / 30));
+  for (let i = 0; i < values.length; i++) {
+    values[i] = random(height);
+  }
+}
+
+function draw() {
+  background(200);
+  frameRate(3);
+
+  
+  
+
+  for (let i = 0; i < values.length; i++) {
+    stroke(0);
+    rect((width / 30) * i, 0, width / 30, values[i]);
+  }
+
+  textSize(32);
+  text(values.length, 300, 300)
+
+}
+
+function swap(arr, a, b) {
+  let temp = arr[a];
+  arr[a] = arr[b];
+  arr[b] = temp;
+}
