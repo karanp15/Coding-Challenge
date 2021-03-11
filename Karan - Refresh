@@ -3,16 +3,18 @@ let values = [];
 let i = 0;
 let j = 0;
 
+let columns = 15;
+
 function setup() {
   createCanvas(900, 550)
-  values = new Array(width / (width / 30));
+  values = new Array(width / (width / columns));
   for (let i = 0; i < values.length; i++) {
     values[i] = random(height);
   }
 }
 
 function draw() {
-  background(200);
+  background(51, 34, 117);
 
   frameRate(3);
 
@@ -30,16 +32,20 @@ function draw() {
   }
   i++;
 
+  updateVisual();
+
+}
+
+function updateVisual(){
   for (let k = 0; k < values.length; k++) {
     stroke(0);
-    if(k <= values.length-i){
+    if(k <= values.length-i-1){
       fill(255)
     }else{
       fill(173,216,230)
     }
-    rect((width / 30) * k, 0, width / 30, values[k]);
+    rect((width / columns) * k, 0, width / columns,values[k]);
   }
-
 }
 
 function swap(arr, a, b) {
