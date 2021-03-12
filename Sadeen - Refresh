@@ -1,44 +1,69 @@
-
 let values = [];
 let i = 0;
 let j = 0;
+let x = 0;
+let width = 0;
+let barWidth = 50;
+let columns = 10;
+let slider = 0;
+
 
 function setup() {
-  createCanvas(720, 400);
-  for(let i = 0;i<width/8;i++){
-    values.push(random(height));
+  createCanvas(windowWidth, windowHeight);
+  values = new Array(width);
+  for (let i = 0; i < values.length; i++) {
+    values[i] = random(height);
+    var slider = checkSlider(5, width / 6, barWidth);
+      slider.position(10, 10);
+      slider.style(width, '80px');
   }
 }
 
 function draw() {
-  background(255);
+  background(191, 120, 111);
+  frameRate(23);
+
+  if (i < values.length) {
+    for (let j = 0; j < values.length - i - 1; j++) {
+      let a = values[j];
+      let b = values[j + 1];
+
+      if (a > b) {
+        swap(values, j, j + 1);
+      }
+
+    }
+  }
+  i++;
+  visual();
+  checkSlider();
 }
 
-function bubbleSort() {
-  for(let k = 0;k<8;k++){
-    if(i<values.length){
-      let temp = values[j];
-      if(values[j] > values[j+1]){
-        values[j] = values[j+1];
-        values[j+1] = temp;
-      }
-      j++;
-      
-      if(j>=values.length-i-1){
-        j = 0;
-        i++;
-      }
+function visual(){
+  for (let k = 0; k < values.length; k++) 
+  {
+    if(k <= values.length+i*2)
+    {
+      stroke(0);
+      fill(255);
     }
-    else{
-      noLoop();
+    rect((width / columns) * k/40, 0, width/columns,values[k]);
+  }
+}
+
+function checkSlider() {
+  if (slider != barWidth) {
+    barWidth = slider;
+    for (let i = 0; i < ((width - 50) / barWidth); i++) {
+      let size = random(400 - 50);
+      bars[i] = new Bar(i * barWidth + offset, height - size , barWidth, size, "blue");
     }
   }
 }
 
-function simulateSorting(){
-  for(let i = 0;i<values.length;i++){
-    stroke(0);
-     fill(50);
-     rect(i*8 , height, 8, values[i],20);
-   }
+
+function swap(arr, a, b) {
+  let temp = arr[a];
+  arr[a] = arr[b];
+  arr[b] = temp;
 }
