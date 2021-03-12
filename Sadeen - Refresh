@@ -4,7 +4,7 @@ let j = 0;
 let x = 0;
 let width = 0;
 let barWidth = 50;
-let columns = 10;
+let rows = 10;
 let slider = 0;
 
 
@@ -13,9 +13,9 @@ function setup() {
   values = new Array(width);
   for (let i = 0; i < values.length; i++) {
     values[i] = random(height);
-    var slider = checkSlider(5, width / 6, barWidth);
-      slider.position(10, 10);
-      slider.style(width, '80px');
+    //var slider = checkSlider(5, width / 6, barWidth);
+//slider.position(10, 10, 'intial');
+     // slider.style(width, '80px');
   }
 }
 
@@ -47,19 +47,16 @@ function visual(){
       stroke(0);
       fill(255);
     }
-    rect((width / columns) * k/40, 0, width/columns,values[k]);
+    rect((width / rows) * k/40, 0, width/rows,values[k]);
   }
 }
 
-function checkSlider() {
-  if (slider != barWidth) {
-    barWidth = slider;
-    for (let i = 0; i < ((width - 50) / barWidth); i++) {
-      let size = random(400 - 50);
-      bars[i] = new Bar(i * barWidth + offset, height - size , barWidth, size, "blue");
-    }
-  }
-}
+//function checkSlider() //{
+  //if (slider != barWidth) {
+    //barWidth = slider;
+    //fill("blue");
+  //}
+//}
 
 
 function swap(arr, a, b) {
