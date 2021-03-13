@@ -1,51 +1,73 @@
+//NOT DONE
+//NOT Object Oriented Yet
+
 let values = [];
 
-let i = 0;
-let j = 0;
+let finishedSticks = 0;
+let stickToCompare = 0;
 
-let columns = 15;
+let columns = 30;
 
 function setup() {
-  createCanvas(900, 550)
+  createCanvas(windowWidth, windowHeight)
   values = new Array(width / (width / columns));
   for (let i = 0; i < values.length; i++) {
     values[i] = random(height);
+    //values[i] = noise(i/100.0)*height;
   }
 }
 
 function draw() {
   background(51, 34, 117);
 
-  frameRate(3);
+  frameRate(50);
 
+  //updateVisual(0);
 
-  if (i < values.length) {
-    for (let j = 0; j < values.length - i - 1; j++) {
-      let a = values[j];
-      let b = values[j + 1];
-
+  // check all sticks done or not
+  if (finishedSticks < values.length) {
+    if (stickToCompare < values.length - finishedSticks - 1) {
+      let a = values[stickToCompare];
+      let b = values[stickToCompare + 1];
+      updateVisual(stickToCompare);
+     // for (let t = 0; t < 500000; t++);
       if (a > b) {
-        swap(values, j, j + 1);
+        swap(values, stickToCompare, stickToCompare + 1);
       }
+      stickToCompare++;
 
     }
   }
-  i++;
-
-  updateVisual();
-
+  // increase number of stick done
+  if (stickToCompare == values.length - finishedSticks - 1) {
+    finishedSticks++;
+    stickToCompare = 0;
+  }
+  
 }
 
-function updateVisual(){
+function updateVisual(currentStick) {
+
+  fill(51, 34, 117);
+  rect(0, 0, width, height)
+
   for (let k = 0; k < values.length; k++) {
     stroke(0);
-    if(k <= values.length-i-1){
-      fill(255)
-    }else{
-      fill(173,216,230)
+
+    if (k == currentStick || k == currentStick + 1) {
+      fill(255, 0, 0);
+    } else if (k <= values.length - finishedSticks - 1) {
+      fill(255);
+    } else {
+      fill(173, 216, 230);
     }
-    rect((width / columns) * k, 0, width / columns,values[k]);
+
+    rect((width / columns) * k, height, width / columns, -1 * values[k]);
+
   }
+
+  //for(i=1;i<50000;i++);
+
 }
 
 function swap(arr, a, b) {
