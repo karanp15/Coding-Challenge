@@ -52,7 +52,7 @@ function visual()
   for (let k = 0; k < values.length; k++) 
   {
       stroke(10);
-      fill(255);   
+      fill(100, 123, 77);   
       rect((width / rows) * k, height, width / rows, -1 * values[k]);
     }
 }
