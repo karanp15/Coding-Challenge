@@ -1,6 +1,6 @@
 let values = [];
 let i = 0;
-let j = 0;
+let k = 0;
 let rows = 30;
 let comparison = 0;
 let complete = 0;
@@ -15,9 +15,10 @@ function setup() {
   }
 }
 
-function draw() {
+function draw() 
+{
   background(191, 120, 111);
-  frameRate();
+  frameRate(1);
 
   //checking columns
   if (complete < values.length)
@@ -27,20 +28,21 @@ function draw() {
       let a = values[comparison];
       let b = values[comparison + 1];
       
-      if (a > b)
+      if (a < b)
       {
         swap(values, comparison, comparison + 1);
       }
 
       comparison++;
     }
-  }
+  }    
+    visual();
+  
   if (comparison == values.length - i - 1)
     {  
       complete++;
       comparison = 0;   
     }
-     visual();
 
 }  
 
@@ -51,7 +53,7 @@ function visual()
   {
       stroke(10);
       fill(255);   
-      rect((width / 20) * k, height, width / 20, -1 * values[k]);
+      rect((width / rows) * k, height, width / rows, -1 * values[k]);
     }
 }
 
