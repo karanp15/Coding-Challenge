@@ -1,65 +1,65 @@
 let values = [];
 let i = 0;
 let j = 0;
-let x = 0;
-let width = 0;
-let barWidth = 50;
-let rows = 10;
-let slider = 0;
+let rows = 30;
+let comparison = 0;
+let complete = 0;
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  values = new Array(width);
-  for (let i = 0; i < values.length; i++) {
+  values = Array(width);
+  for (let i = 0; i < values.length; i++)
+  {
     values[i] = random(height);
-    //var slider = checkSlider(5, width / 6, barWidth);
-//slider.position(10, 10, 'intial');
-     // slider.style(width, '80px');
   }
 }
 
 function draw() {
   background(191, 120, 111);
-  frameRate(23);
+  frameRate(100);
 
-  if (i < values.length) {
-    for (let j = 0; j < values.length - i - 1; j++) {
-      let a = values[j];
-      let b = values[j + 1];
-
-      if (a > b) {
-        swap(values, j, j + 1);
+  //checking columns
+  if (complete < values.length)
+  {
+    if (comparison < values.length - i - 1)
+    {
+      let a = values[comparison];
+      let b = values[comparison + 1];
+      
+      if (a < b)
+      {
+        swap(values, comparison, comparison + 1);
       }
 
+      comparison++;
     }
   }
-  i++;
+  if (comparison == values.length - i - 1)
+    {  
+      complete++;
+      comparison = 0;   
+    }
+    
   visual();
-  checkSlider();
-}
 
-function visual(){
+}  
+
+//rect drawings
+function visual()
+{
   for (let k = 0; k < values.length; k++) 
   {
-    if(k <= values.length+i*2)
-    {
-      stroke(0);
-      fill(255);
+      stroke(7);
+      fill(255);   
+      rect((width / 20) * k, height, width / 20, -1 * values[k]);
     }
-    rect((width / rows) * k/40, 0, width/rows,values[k]);
-  }
 }
 
-//function checkSlider() //{
-  //if (slider != barWidth) {
-    //barWidth = slider;
-    //fill("blue");
-  //}
-//}
 
-
-function swap(arr, a, b) {
+//swap function
+function swap(arr, a, b) 
+{
   let temp = arr[a];
   arr[a] = arr[b];
   arr[b] = temp;
