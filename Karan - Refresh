@@ -6,14 +6,17 @@ let values = [];
 let finishedSticks = 0;
 let stickToCompare = 0;
 
+//number of bars/columns that will be generated and sorted
 let columns = 30;
 
 function setup() {
+  //Create Canvas based on users window size
   createCanvas(windowWidth, windowHeight)
+  
+  //randomizing values for all bars/columns in the array 
   values = new Array(width / (width / columns));
   for (let i = 0; i < values.length; i++) {
     values[i] = random(height);
-    //values[i] = noise(i/100.0)*height;
   }
 }
 
@@ -22,28 +25,38 @@ function draw() {
 
   frameRate(50);
 
-  //updateVisual(0);
-
   // check all sticks done or not
   if (finishedSticks < values.length) {
+    
     if (stickToCompare < values.length - finishedSticks - 1) {
+      
       let a = values[stickToCompare];
       let b = values[stickToCompare + 1];
+      
       updateVisual(stickToCompare);
-     // for (let t = 0; t < 500000; t++);
+      
       if (a > b) {
         swap(values, stickToCompare, stickToCompare + 1);
       }
+      
       stickToCompare++;
 
     }
-  }
-  // increase number of stick done
-  if (stickToCompare == values.length - finishedSticks - 1) {
-    finishedSticks++;
-    stickToCompare = 0;
+    
+  } else {
+    
+    updateVisual();
+  
   }
   
+  // increase number of stick done
+  if (stickToCompare == values.length - finishedSticks - 1) {
+    
+    finishedSticks++;
+    stickToCompare = 0;
+  
+  }
+
 }
 
 function updateVisual(currentStick) {
@@ -55,23 +68,30 @@ function updateVisual(currentStick) {
     stroke(0);
 
     if (k == currentStick || k == currentStick + 1) {
+      
       fill(255, 0, 0);
+      
     } else if (k <= values.length - finishedSticks - 1) {
+      
       fill(255);
+      
     } else {
+      
       fill(173, 216, 230);
+      
     }
 
     rect((width / columns) * k, height, width / columns, -1 * values[k]);
 
   }
-
-  //for(i=1;i<50000;i++);
-
 }
 
+
+//Simple Swap Function
 function swap(arr, a, b) {
+  
   let temp = arr[a];
   arr[a] = arr[b];
   arr[b] = temp;
+  
 }
